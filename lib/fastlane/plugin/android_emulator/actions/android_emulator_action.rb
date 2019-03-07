@@ -8,6 +8,10 @@ module Fastlane
         sdk_dir = params[:sdk_dir]
         port = params[:port]
         adb = "#{sdk_dir}/platform-tools/adb"
+        
+        resolution_width  = params[:resolution_width] || 1080
+        resolution_height = params[:resolution_height] || 1920
+
 
         UI.message("Stopping emulator")
         system("#{adb} emu kill > /dev/null 2>&1 &")
@@ -24,6 +28,8 @@ module Fastlane
         open("#{Dir.home}/.android/avd/#{params[:name]}.avd/config.ini", 'a') { |f|
           f << "hw.gpu.mode=auto\n"
           f << "hw.gpu.enabled=yes\n"
+          f << "hw.lcd.height=#{resolution_width}\n"
+          f << "hw.lcd.width=#{resolution_height}\n"
           f << "skin.dynamic=yes\n"
           f << "skin.name=1080x1920\n"
         }
