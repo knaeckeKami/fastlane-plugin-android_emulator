@@ -1,5 +1,5 @@
 module Fastlane
-  module AndroidEmulator
-    VERSION = "1.0.1"
+  module AndroidEmulatorKami
+    VERSION = "1.0.2"
   end
 end

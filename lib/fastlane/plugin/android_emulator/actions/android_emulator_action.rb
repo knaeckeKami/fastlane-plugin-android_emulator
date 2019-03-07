@@ -3,7 +3,7 @@ require_relative '../helper/android_emulator_helper'
 
 module Fastlane
   module Actions
-    class AndroidEmulatorAction < Action
+    class AndroidEmulatorKamiAction < Action
       def self.run(params)
         sdk_dir = params[:sdk_dir]
         port = params[:port]
