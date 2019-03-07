@@ -114,7 +114,19 @@ module Fastlane
                                        env_name: "AVD_DEMO_MODE",
                                        description: "Set the emulator in demo mode",
                                        is_string: false,
-                                       default_value: true)
+                                       default_value: true),
+          FastlaneCore::ConfigItem.new(key: :resolution_width,
+                                       env_name: "AVD_RESOLUTION_WIDTH",
+                                       description: "Resolution of avd width",
+                                       default_value: "1080",
+                                       optional: true),
+          FastlaneCore::ConfigItem.new(key: :resolution_height,
+                                       env_name: "AVD_RESOLUTION_HEIGHT",
+                                       description: "Resolution of avd height",
+                                       default_value: "1920",
+                                       optional: true)
+     
+     
         ]
       end
 

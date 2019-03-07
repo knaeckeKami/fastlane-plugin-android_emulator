@@ -1,4 +1,4 @@
-require 'fastlane/plugin/android_emulator/version'
+require 'fastlane/plugin/android_emulator_kami/version'
 
 module Fastlane
   module AndroidEmulatorKami

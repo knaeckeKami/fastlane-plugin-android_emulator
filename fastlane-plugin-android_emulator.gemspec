@@ -2,11 +2,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fastlane/plugin/android_emulator/version'
+require 'fastlane/plugin/android_emulator_kami/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'fastlane-plugin-android_emulator_kami'
-  spec.version       = Fastlane::AndroidEmulator::VERSION
+  spec.version       = Fastlane::AndroidEmulatorKami::VERSION
   spec.author        = 'Michael Ruhl'
   spec.email         = 'michael.ruhl@novatec-gmbh.de'
 
