@@ -9,8 +9,8 @@ module Fastlane
         port = params[:port]
         adb = "#{sdk_dir}/platform-tools/adb"
         
-        resolution_width  = params[:resolution_width] || 1080
-        resolution_height = params[:resolution_height] || 1920
+        resolution_width  = params[:resolution_width] 
+        resolution_height = params[:resolution_height] 
 
 
         UI.message("Stopping emulator")
@@ -25,14 +25,27 @@ module Fastlane
         )
 
         UI.message("Override configuration")
-        open("#{Dir.home}/.android/avd/#{params[:name]}.avd/config.ini", 'a') { |f|
-          f << "hw.gpu.mode=auto\n"
-          f << "hw.gpu.enabled=yes\n"
-          f << "hw.lcd.height=#{resolution_width}\n"
-          f << "hw.lcd.width=#{resolution_height}\n"
-          f << "skin.dynamic=yes\n"
-          f << "skin.name=1080x1920\n"
+        ini_path = "#{Dir.home}/.android/avd/#{params[:name]}.avd/config.ini"
+        inifile = IniFile.load(ini_path)
+        settings = inifile["global"]
+        new_settings = {
+          "hw.gpu.mode" => "auto",
+          "hw.gpu.enabled" => "yes",
+          "skin.dynamic" => "yes",
+          "skin.name" => "#{resolution_width}x#{resolution_height}",
+          "hw.lcd.height" => resolution_height,
+          "hw.lcd.width" => resolution_width
         }
+        new_ini = IniFile.new
+        new_settings.each do |key, value|
+            new_ini["global"][key] = value
+        end
+        merged_ini = inifile.merge new_ini
+        puts "New emulator configuration:\n"
+        merged_ini["global"].each do |key, value|
+          puts "#{key}:    #{value}"
+        end
+        merged_ini.write 
 
         # Verify HAXM installed on mac
         if FastlaneCore::Helper.mac?
