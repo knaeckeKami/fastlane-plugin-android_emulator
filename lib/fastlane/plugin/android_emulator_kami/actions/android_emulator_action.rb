@@ -12,7 +12,8 @@ module Fastlane
         adb = "#{sdk_dir}/platform-tools/adb"
         
         resolution_width  = params[:resolution_width] 
-        resolution_height = params[:resolution_height] 
+        resolution_height = params[:resolution_height]
+        resolution_dpi = params[:resolution_dpi] 
 
 
         UI.message("Stopping emulator")
@@ -36,7 +37,8 @@ module Fastlane
           "skin.dynamic" => "yes",
           "skin.name" => "#{resolution_width}x#{resolution_height}",
           "hw.lcd.height" => resolution_height,
-          "hw.lcd.width" => resolution_width
+          "hw.lcd.width" => resolution_width,
+          "hw.lcd.density" => resolution_dpi
         }
         new_ini = IniFile.new
         new_settings.each do |key, value|
@@ -139,8 +141,12 @@ module Fastlane
                                        env_name: "AVD_RESOLUTION_HEIGHT",
                                        description: "Resolution of avd height",
                                        default_value: "1920",
+                                       optional: true),
+          FastlaneCore::ConfigItem.new(key: :resolution_dpi,
+                                       env_name: "AVD_RESOLUTION_DPI",
+                                       description: "Device DPI",
+                                       default_value: "480",
                                        optional: true)
-     
      
         ]
       end
