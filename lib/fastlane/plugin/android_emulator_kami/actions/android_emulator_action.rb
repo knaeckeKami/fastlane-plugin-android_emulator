@@ -45,7 +45,7 @@ module Fastlane
         merged_ini = inifile.merge new_ini
         puts "New emulator configuration:\n"
         merged_ini["global"].each do |key, value|
-          puts "#{key}:    #{value}"
+          printf("%15s: %s\n", key, value)
         end
         merged_ini.write 
 
