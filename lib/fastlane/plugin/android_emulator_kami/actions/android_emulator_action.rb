@@ -45,12 +45,13 @@ module Fastlane
             new_ini["global"][key] = value
         end
         merged_ini = inifile.merge new_ini
+       
+        #remove [global] section (first line)
+        merged_ini_string = merged_ini.to_s.split("\n")[1..-1].join("\n")
         puts "New emulator configuration:\n"
-        merged_ini["global"].each do |key, value|
-          printf("%15s: %s\n", key, value)
-        end
-        merged_ini.write 
-
+        puts(merged_ini_string)
+        File.write(ini_path, merged_ini_string)
+        
         # Verify HAXM installed on mac
         if FastlaneCore::Helper.mac?
           kextstat = Actions.sh("kextstat", log: false)
@@ -65,6 +66,8 @@ module Fastlane
         until Actions.sh("#{adb} -e shell getprop init.svc.bootanim", log: false).include? "stopped" do
           sleep(5)
         end
+        
+        sleep(2)
 
         if params[:location]
           UI.message("Set location")
