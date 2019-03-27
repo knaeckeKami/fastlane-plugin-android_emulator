@@ -32,9 +32,10 @@ module Fastlane
         inifile = IniFile.load(ini_path)
         settings = inifile["global"]
         new_settings = {
-          "hw.gpu.mode" => "auto",
+          "hw.gpu.mode" => "host",
           "hw.gpu.enabled" => "yes",
           "skin.dynamic" => "yes",
+          "hw.ramSize" => "2048",
           "skin.name" => "#{resolution_width}x#{resolution_height}",
           "hw.lcd.height" => resolution_height,
           "hw.lcd.width" => resolution_width,
